@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 export default function MessageInput({ onSend }) {
   const [text, setText] = useState("");
@@ -17,20 +18,23 @@ export default function MessageInput({ onSend }) {
   };
 
   return (
-    <div className="flex p-4 border-t border-gray-700 bg-gray-900">
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Message Gemini..."
-        className="flex-1 bg-gray-800 text-white px-4 py-3 rounded-lg outline-none resize-none h-14"
-      />
-      <button
-        onClick={submit}
-        className="ml-3 bg-blue-600 px-6 py-3 rounded-lg text-white hover:bg-blue-700"
-      >
-        Send
-      </button>
+    <div className="p-4 border-t border-gray-800 bg-black">
+      <div className="relative flex items-center">
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Message Jerry..."
+          className="w-full bg-gray-900 text-white px-4 py-3 pr-14 rounded-xl outline-none resize-none h-14 placeholder-gray-500"
+        />
+
+        <button
+          onClick={submit}
+          className="absolute right-2 h-10 w-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center"
+        >
+          <PaperAirplaneIcon className="h-5 w-5 text-white rotate-45" />
+        </button>
+      </div>
     </div>
   );
 }

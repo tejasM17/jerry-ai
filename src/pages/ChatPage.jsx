@@ -25,7 +25,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex h-screen bg-black overflow-hidden">
       <HistorySidebar
         userId={USER_ID}
         onSelect={selectSession}

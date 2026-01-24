@@ -1,6 +1,6 @@
 export default function MessageList({ messages, loading }) {
   return (
-    <div className="flex-1 overflow-y-auto p-6 space-y-4">
+    <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-black">
       {messages.map((msg, i) => {
         const isUser = msg.role === "user";
 
@@ -12,8 +12,8 @@ export default function MessageList({ messages, loading }) {
             <div
               className={`px-4 py-3 rounded-lg text-white ${
                 isUser
-                  ? "bg-blue-600 w-[30%] text-right"
-                  : "bg-gray-700 w-[75%] text-left"
+                  ? "bg-gray-700 w-[30%] text-right"
+                  : "bg-gray-800 w-[75%] text-left"
               }`}
             >
               {msg.message}
