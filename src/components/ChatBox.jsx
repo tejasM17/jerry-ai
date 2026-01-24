@@ -1,31 +1,22 @@
 import { useState } from "react";
-import { generateAI } from "../api/ai.api";
+import { sendMessage } from "../api/chat.api";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
-import "../styles/chat.css";
 
-export default function ChatBox() {
-  const [messages, setMessages] = useState([]);
+export default function ChatBox({ messages, onRefresh, userId }) {
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = async (text) => {
-    setMessages((prev) => [...prev, { role: "user", text }]);
+  const handleSend = async (text) => {
     setLoading(true);
-
-    try {
-      const reply = await generateAI(text);
-      setMessages((prev) => [...prev, { role: "ai", text: reply }]);
-    } catch {
-      setMessages((prev) => [...prev, { role: "ai", text: "Server error" }]);
-    }
-
+    await sendMessage(userId, text);
+    await onRefresh();
     setLoading(false);
   };
 
   return (
-    <div className="chat-container">
+    <div className="flex flex-col flex-1 bg-gray-900 text-white">
       <MessageList messages={messages} loading={loading} />
-      <MessageInput onSend={sendMessage} />
+      <MessageInput onSend={handleSend} />
     </div>
   );
 }
