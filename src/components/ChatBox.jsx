@@ -3,13 +3,27 @@ import { sendMessage } from "../api/chat.api";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 
-export default function ChatBox({ messages, onRefresh, userId }) {
+export default function ChatBox({
+  messages,
+  sessionId,
+  userId,
+  onNewSession,
+  onLoad,
+}) {
   const [loading, setLoading] = useState(false);
 
   const handleSend = async (text) => {
     setLoading(true);
-    await sendMessage(userId, text);
-    await onRefresh();
+    const res = await sendMessage(userId, sessionId, text);
+
+    // If new chat → backend sends new sessionId
+    if (!sessionId) {
+      onNewSession(res.data.sessionId);
+      await onLoad(res.data.sessionId);
+    } else {
+      await onLoad(sessionId);
+    }
+
     setLoading(false);
   };
 

@@ -7,20 +7,37 @@ const USER_ID = "tejas123";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
+  const [sessionId, setSessionId] = useState(null);
 
-  const loadHistory = async () => {
-    const res = await getHistory(USER_ID);
+  const loadHistory = async (sid) => {
+    const res = await getHistory(sid);
     setMessages(res.data);
   };
 
-  useEffect(() => {
-    loadHistory();
-  }, []);
+  const selectSession = (sid) => {
+    setSessionId(sid);
+    loadHistory(sid);
+  };
+
+  const newChat = () => {
+    setSessionId(null);
+    setMessages([]);
+  };
 
   return (
     <div className="flex h-screen bg-gray-900">
-      <HistorySidebar onRefresh={loadHistory} />
-      <ChatBox messages={messages} onRefresh={loadHistory} userId={USER_ID} />
+      <HistorySidebar
+        userId={USER_ID}
+        onSelect={selectSession}
+        onNew={newChat}
+      />
+      <ChatBox
+        messages={messages}
+        sessionId={sessionId}
+        userId={USER_ID}
+        onNewSession={setSessionId}
+        onLoad={loadHistory}
+      />
     </div>
   );
 }
