@@ -24,7 +24,7 @@ export default function MessageInput({ onSend }) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Message Jerry..."
+          placeholder="Ask Jerry"
           className="w-full bg-gray-900 text-white px-4 py-3 pr-14 rounded-xl outline-none resize-none h-14 placeholder-gray-500"
         />
 
