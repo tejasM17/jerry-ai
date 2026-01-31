@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import { Icon } from "@iconify/react";
 
 export default function MessageInput({ onSend }) {
   const [text, setText] = useState("");
@@ -18,21 +18,34 @@ export default function MessageInput({ onSend }) {
   };
 
   return (
-    <div className="p-4 border-t border-gray-800 bg-black">
-      <div className="relative flex items-center">
+    <div className="fixed bottom-6 left-0 right-0 flex justify-center px-4">
+      <div className="w-full max-w-3xl bg-[#1f1f1f] rounded-2xl flex items-center px-3 py-2 shadow-lg border border-gray-800">
+        {/* Plus icon */}
+        <button className="p-2 rounded-full hover:bg-gray-700">
+          <Icon icon="mdi:plus" className="text-gray-300 text-xl" />
+        </button>
+
+        {/* Textarea */}
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask Jerry"
-          className="w-full bg-gray-900 text-white px-4 py-3 pr-14 rounded-xl outline-none resize-none h-14 placeholder-gray-500"
+          rows={1}
+          className="flex-1 bg-transparent text-white px-3 py-2 outline-none resize-none placeholder-gray-400"
         />
 
+        {/* Mic icon */}
+        <button className="p-2 rounded-full hover:bg-gray-700">
+          <Icon icon="mdi:microphone" className="text-gray-300 text-xl" />
+        </button>
+
+        {/* Send (Up Arrow) */}
         <button
           onClick={submit}
-          className="absolute right-2 h-10 w-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center"
+          className="ml-1 p-2 rounded-full bg-white hover:bg-gray-200 flex items-center justify-center"
         >
-          <PaperAirplaneIcon className="h-5 w-5 text-white rotate-45" />
+          <Icon icon="mdi:arrow-up" className="text-black text-lg" />
         </button>
       </div>
     </div>
